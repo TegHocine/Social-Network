@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dark {
+  scrollbar-color: rgb(51, 83, 114) rgb(25, 39, 52);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
