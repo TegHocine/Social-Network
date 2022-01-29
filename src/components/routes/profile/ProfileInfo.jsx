@@ -4,7 +4,7 @@ import ProfileModal from './ProfileModal';
 import TimeStamp from '../../layouts/timestamp/TimeStamp';
 
 const ProfileInfo = ({ user }) => {
-  const { cover, name, userName, timeStamp, avatar } = user;
+  const { cover, name, userName, timeStamp, avatar, bio } = user;
   return (
     <div className='border-b border-gray-300 dark:border-gray-700 pb-4'>
       <div className=''>
@@ -26,16 +26,26 @@ const ProfileInfo = ({ user }) => {
       </div>
 
       <div className='w-full  px-5 flex flex-col gap-2'>
+        {/* Display userName and name  */}
         <div>
           <div className='font-semibold text-2xl'> {name} </div>
           <div className='text-base text-gray-600 dark:text-gray-400'>
             {userName}
           </div>
         </div>
+        {/* User bio */}
+        {bio && (
+          <div>
+            <p>{bio}</p>
+          </div>
+        )}
+        {/* Display time since the use joinned */}
         <div className='text-base text-gray-600 dark:text-gray-400'>
           <i className='far fa-calendar-alt'></i> <span>Joined</span>
           <TimeStamp timeStamp={timeStamp} />
         </div>
+
+        {/* Number of following and follower not implemented yet */}
         <div className='flex gap-2'>
           <div>
             12{' '}

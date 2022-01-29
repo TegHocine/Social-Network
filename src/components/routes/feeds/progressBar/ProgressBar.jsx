@@ -8,7 +8,6 @@ const ProgressBar = ({ textLen }) => {
     const barProgress = oneMinus * 2 * 10 * Math.PI;
     setProgress(barProgress);
   }, [textLen]);
-  console.log(progress);
   return (
     <div className='w-8 h-8' style={{ transform: 'rotate(-90deg)' }}>
       <svg
