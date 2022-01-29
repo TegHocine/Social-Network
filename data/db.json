@@ -103,6 +103,32 @@
       "like": 0,
       "comments": [],
       "id": 6
+    },
+    {
+      "userId": 1,
+      "name": "black",
+      "userName": "@lotus",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthHVYX7uaGAQbJifvkv4GskIjvp14b9KIAQ&usqp=CAU",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare iaculis nibh, ac vulputate sapien malesuada nec. Mauris pretium pretium tellus sed gravida. Nunc vehicula purus id efficitur vehicula. Fusce dictum t",
+      "imgSrc": "https://www.fredzone.org/wp-content/uploads/2015/12/video-profil-facebook.jpg",
+      "verified": false,
+      "timeStamp": "1/29/2022, 11:07:31 PM",
+      "like": 0,
+      "comments": [],
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "name": "lotus",
+      "userName": "@lotus",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthHVYX7uaGAQbJifvkv4GskIjvp14b9KIAQ&usqp=CAU",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare iaculis nibh, ac vulputate sapien malesuada nec. Mauris pretium pretium tellus sed gravida. Nunc vehicula purus id efficitur vehicula. Fusce dictum t",
+      "imgSrc": "https://www.fredzone.org/wp-content/uploads/2015/12/video-profil-facebook.jpg",
+      "verified": false,
+      "timeStamp": "1/29/2022, 11:08:00 PM",
+      "like": 0,
+      "comments": [],
+      "id": 8
     }
   ],
   "comments": [
@@ -134,7 +160,7 @@
   "users": [
     {
       "id": 1,
-      "name": "black",
+      "name": "lotus",
       "userName": "@lotus",
       "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthHVYX7uaGAQbJifvkv4GskIjvp14b9KIAQ&usqp=CAU",
       "email": "email@email.com",

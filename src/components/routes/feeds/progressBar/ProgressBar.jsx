@@ -21,7 +21,7 @@ const ProgressBar = ({ textLen }) => {
           fill='none'
           strokeWidth='2'
           r='10'
-          stroke='#38444D'></circle>
+          className='dark:stroke-gray-700 stroke-gray-300'></circle>
         <circle
           cx='50%'
           cy='50%'
