@@ -55,6 +55,7 @@ const Message = () => {
   };
 
   return (
+    // Here im trying to clone the twitter post box having some probleme with copy pasting
     <div className='mt-40'>
       <form onSubmit={onSubmit}>
         <div className='flex w-full px-4 pt-4 border-b border-b-gray-300 dark:border-b-gray-700'>

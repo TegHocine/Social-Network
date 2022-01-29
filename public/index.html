@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/neuron-teal.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -33,11 +33,15 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
       <div
-        className="bg-gray-900 flex h-screen items-center justify-center w-full"
+        style="
+          width: 100%;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          place-items: center;
+        "
       >
-        <div className="text-9xl text-gray-200">
-          <i className="fas fa-circle-notch animate-spin"></i>
-        </div>
+        <img src="./neuron-teal.svg" alt="" style="width: 80px; height: 80px" />
       </div>
     </div>
     <!--

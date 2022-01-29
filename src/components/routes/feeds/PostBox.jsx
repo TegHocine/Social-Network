@@ -9,7 +9,10 @@ const PostBox = () => {
   const [text, setText] = useState('');
   const [img, setImg] = useState('');
   const [areaH, setareaH] = useState('auto');
-  const [textLen, setTextLen] = useState({ textLength: '', remain: '' });
+  const [textProgress, setTextProgress] = useState({
+    textLength: '',
+    remain: '',
+  });
 
   const dispatch = useDispatch();
 
@@ -53,9 +56,10 @@ const PostBox = () => {
     setareaH(`${event.target.scrollHeight}px`);
     const textLength = event.target.textLength;
     textLength < 1 && setareaH('95px');
-    setTextLen({
+
+    setTextProgress({
       textLength,
-      remain: `${249 - textLength}`,
+      remain: `${250 - textLength}`,
     });
   };
 
@@ -83,9 +87,16 @@ const PostBox = () => {
                 value={text}
                 onChange={onTextChange}
               />
-              <div className=''>
-                <ProgressBar textLen={textLen.textLength} />
-                <span></span>
+              <div className='flex justify-end my-1'>
+                <div className='relative flex justify-center items-center'>
+                  <ProgressBar
+                    textLen={textProgress.textLength}
+                    color={textProgress.color}
+                  />
+                  <span className='absolute text-sm'>
+                    {textProgress.remain}
+                  </span>
+                </div>
               </div>
             </div>
             <div>

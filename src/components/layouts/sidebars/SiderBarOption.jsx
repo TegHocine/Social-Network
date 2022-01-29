@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 const SiderBarOption = ({ title, icon, link }) => {
   return (
     <Fragment>
-      <li className='py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-800  my-2 rounded-full w-max cursor-pointer transition-colors '>
-        <Link to={link}>
+      <li className='my-4'>
+        <Link
+          to={link}
+          className='py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-800  rounded-full w-max cursor-pointer transition-colors'>
           <i className={icon}></i>
           <span className='pl-4 hidden lg:inline'>{title}</span>
         </Link>
