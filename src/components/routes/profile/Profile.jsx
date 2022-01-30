@@ -7,7 +7,7 @@ import { fetchUser } from '../../../features/userReducer';
 const Profile = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(fetchUser(1));
     //eslint-disable-next-line
   }, []);
   const userInfo = useSelector((state) => state.user.value);

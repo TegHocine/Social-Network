@@ -1,13 +1,25 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import { updateUser } from '../../../features/userReducer';
+import { useDispatch } from 'react-redux';
 import Avatar from '../../layouts/Avatar';
 
 export default function MyModal({ user }) {
+  const dispatch = useDispatch();
   let [isOpen, setIsOpen] = useState(false);
 
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [bio, setBio] = useState(user.bio);
+  const [userInfo, setUserInfo] = useState({
+    ...user,
+  });
+  const { name, email, bio } = userInfo;
+
+  const onChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
+
+  const onSave = () => {
+    dispatch(updateUser(userInfo));
+  };
 
   const closeModal = () => {
     setIsOpen(false);
@@ -73,9 +85,11 @@ export default function MyModal({ user }) {
                   </div>
                   <div className=' w-full flex justify-between items-center'>
                     <div className='text-lg font-semibold'> Edit profile </div>
-                    <div className='px-4 py-1 dark:bg-white bg-gray-900 dark:text-gray-900 text-white rounded-full '>
+                    <button
+                      className='px-4 py-1 dark:bg-white bg-gray-900 dark:text-gray-900 text-white rounded-full '
+                      onClick={onSave}>
                       Save
-                    </div>
+                    </button>
                   </div>
                 </div>
 
@@ -108,6 +122,7 @@ export default function MyModal({ user }) {
                         type='text'
                         name='name'
                         value={name}
+                        onChange={onChange}
                       />
                       <label
                         htmlFor='name'
@@ -123,6 +138,7 @@ export default function MyModal({ user }) {
                         type='email'
                         name='email'
                         value={email}
+                        onChange={onChange}
                       />
                       <label
                         htmlFor='email'
@@ -138,6 +154,7 @@ export default function MyModal({ user }) {
                         type='text'
                         name='bio'
                         value={bio}
+                        onChange={onChange}
                       />
                       <label
                         htmlFor='bio'

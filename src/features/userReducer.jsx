@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const id = 1;
-export const fetchUser = createAsyncThunk(`/users`, async () => {
+export const fetchUser = createAsyncThunk(`/users/fetchUser`, async (id) => {
   try {
     const res = await axios.get(`/users/${id}`);
     return res.data;
@@ -10,6 +9,19 @@ export const fetchUser = createAsyncThunk(`/users`, async () => {
     return error.response.statusText;
   }
 });
+export const updateUser = createAsyncThunk(
+  `/users/updateUser`,
+  async (user) => {
+    try {
+      const res = await axios.put(`/users/${user.id}`, user, {
+        'Content-Type': 'application/json',
+      });
+      return res.data;
+    } catch (error) {
+      return error.response.statusText;
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
@@ -24,6 +36,13 @@ const userSlice = createSlice({
       state.status = 'success';
     },
     [fetchUser.rejected]: (state) => {
+      state.status = 'failed';
+    },
+    [updateUser.fulfilled]: (state, { payload }) => {
+      state.value = payload;
+      state.status = 'success';
+    },
+    [updateUser.rejected]: (state) => {
       state.status = 'failed';
     },
   },
