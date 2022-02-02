@@ -18,7 +18,7 @@ const PostBox = () => {
 
   // init the user state with user()
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(fetchUser(1));
     //eslint-disable-next-line
   }, []);
 
