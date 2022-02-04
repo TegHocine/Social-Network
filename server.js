@@ -3,14 +3,10 @@ const connectDB = require('./config/db');
 
 const app = express();
 
+app.use(express.json());
+
 // connect database
 connectDB();
-
-app.get('/', (req, res) =>
-  res.json({
-    msg: 'basic server to start',
-  })
-);
 
 // Define Routes
 app.use('/api/users', require('./routes/users'));
