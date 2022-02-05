@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchUser = createAsyncThunk(`/users/fetchUser`, async (id) => {
   try {
-    const res = await axios.get(`/users/${id}`);
+    const res = await axios.get(`http://localhost:8000/users/${id}`);
     return res.data;
   } catch (error) {
     return error.response.statusText;
