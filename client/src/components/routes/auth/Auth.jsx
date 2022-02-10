@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router';
-import { useEffect, useLayoutEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useLayoutEffect } from 'react';
 import { authUser } from '../../../features/userReducer';
-import { loadUser } from '../../../features/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LogoTeal from '../../../assets/neuron.svg';
@@ -22,12 +21,10 @@ const Auth = () => {
     //eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    dispatch(loadUser());
-    //eslint_disable_next_line
-  }, []);
   const user = useSelector((state) => state.user);
   const { isAuthenticated, errors } = user;
+
+  console.log(user);
 
   const onChange = (e) => {
     setAuth({ ...auth, [e.target.name]: e.target.value });
@@ -38,7 +35,7 @@ const Auth = () => {
     if (email === '' || password === '') {
       setAlert('Please enter all fields');
     } else {
-      dispatch(authUser({ email, password }));
+      dispatch(authUser(auth));
     }
   };
 
