@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
-import { authUser } from '../../../features/userReducer';
+import { authUser, loadUser } from '../../../features/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LogoTeal from '../../../assets/neuron.svg';
@@ -22,9 +22,12 @@ const Auth = () => {
   }, []);
 
   const user = useSelector((state) => state.user);
-  const { isAuthenticated, errors } = user;
-
-  console.log(user);
+  const { isAuthenticated, errors, token } = user;
+  useEffect(() => {
+    dispatch(loadUser(token));
+    //eslint-disable-next-line
+  }, []);
+  if (isAuthenticated) return <Navigate to='/' />;
 
   const onChange = (e) => {
     setAuth({ ...auth, [e.target.name]: e.target.value });
@@ -39,7 +42,6 @@ const Auth = () => {
     }
   };
 
-  if (isAuthenticated) return <Navigate to='/' />;
   return (
     <div className='h-screen max-w-lg flex justify-center items-center text-inherit container mx-auto'>
       <form onSubmit={onSubmit} method='post'>

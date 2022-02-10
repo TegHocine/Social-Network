@@ -2,12 +2,15 @@ import React from 'react';
 import Avatar from '../Avatar';
 import { logOut } from '../../../features/userReducer';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const SidebarLogoutBtn = () => {
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
 
   const logout = () => {
     dispatch(logOut());
+    Navigate('/auth');
   };
 
   return (

@@ -8,6 +8,7 @@ import {
   Profile,
   Auth,
   ProtectedRoute,
+  PageNotFound,
 } from './components/routes/index';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -27,9 +28,22 @@ const App = () => {
           <div className='flex-1 lg:flex-0/5'>
             <Routes>
               <Route path='/' element={<ProtectedRoute component={Feed} />} />
-              <Route path='/notifications' element={<Notification />} />
-              <Route path='/messages' element={<Message />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route
+                path='/notifications'
+                element={<ProtectedRoute component={Notification} />}
+              />
+              <Route
+                path='/messages'
+                element={<ProtectedRoute component={Message} />}
+              />
+              <Route
+                path='/profile'
+                element={<ProtectedRoute component={Profile} />}
+              />
+              <Route
+                path='*'
+                element={<ProtectedRoute component={PageNotFound} />}
+              />
             </Routes>
           </div>
 
