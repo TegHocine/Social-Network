@@ -1,4 +1,8 @@
 
+![login](https://user-images.githubusercontent.com/61586802/153486738-feebd2b4-4d1f-450d-aa7b-819b4314fe94.PNG)
+
+![register](https://user-images.githubusercontent.com/61586802/153486734-83180e57-dd75-490d-b542-3eca0b7187b8.PNG)
+
 ![CaptureHome](https://user-images.githubusercontent.com/61586802/151679210-4e80bf4a-f932-473e-9404-ea4ac0336b5b.PNG)
 
 ![CaptureProfile](https://user-images.githubusercontent.com/61586802/151679208-9356ccfc-1ea1-47ea-9883-4ce473c6f8cf.PNG)
