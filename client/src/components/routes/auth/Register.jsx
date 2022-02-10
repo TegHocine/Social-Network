@@ -1,14 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Fragment, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../features/userReducer';
+import { loadUser } from '../../../features/userReducer';
 import { Navigate } from 'react-router';
 
 import defaultProfile from '../../../assets/default-profile.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
-export default function MyModal({ user }) {
+export default function Register() {
   let [isOpen, setIsOpen] = useState(false);
   const closeModal = () => {
     setIsOpen(false);
@@ -19,6 +20,11 @@ export default function MyModal({ user }) {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(loadUser());
+    //eslint_disable_next_line
+  }, []);
+  const user = useSelector((state) => state.user);
   const { isAuthenticated, errors } = user;
 
   const [alert, setAlert] = useState('');
@@ -98,6 +104,7 @@ export default function MyModal({ user }) {
               <div className='inline-block w-full max-w-lg overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-gray-900 shadow-xl rounded-2xl px-1'>
                 <div className='py-4'>
                   <div className='border-b border-b-300 dark:border-b-700'>
+                    {/* title of the modal and close button */}
                     <div className='px-4 flex justify-between'>
                       <div>
                         <h1 className='text-3xl font-bold'>Register</h1>
@@ -117,7 +124,7 @@ export default function MyModal({ user }) {
                   </div>
                   <div></div>
                 </div>
-
+                {/* notify the user in case of password not matching  */}
                 {alert !== '' && (
                   <div className='px-3 mb-1'>
                     <div className='bg-red-900 text-sm text-gray-300 p-2'>
@@ -128,7 +135,7 @@ export default function MyModal({ user }) {
                     </div>
                   </div>
                 )}
-
+                {/* Show  errors send by the server */}
                 {errors !== null && (
                   <div className='px-3 mb-1'>
                     {errors.map((error) => (
@@ -143,7 +150,7 @@ export default function MyModal({ user }) {
                     ))}
                   </div>
                 )}
-
+                {/* Register form */}
                 <form onSubmit={onRegister} method='post'>
                   <div className='my-4 px-3'>
                     <div>
@@ -233,7 +240,7 @@ export default function MyModal({ user }) {
                       </div>
                     </div>
                   </div>
-                  {/* Click to create an account */}
+                  {/* submit button */}
                   <div className='m-4 flex justify-center'>
                     <button
                       type='submit'

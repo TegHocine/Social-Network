@@ -95,12 +95,14 @@ export default function MyModal({ user }) {
 
                 {/* cover and avatar */}
                 <div>
-                  <div>
-                    <img
-                      src={user.cover}
-                      alt='cover'
-                      className='object-cover object-center w-full h-48'
-                    />
+                  <div className='bg-teal-600 h-48'>
+                    {user.cover && (
+                      <img
+                        src={user.cover}
+                        alt='cover'
+                        className='object-cover object-center w-full h-full'
+                      />
+                    )}
                   </div>
                   <div className='w-full h-16 flex justify-between items-center px-5 relative'>
                     <Avatar

@@ -17,7 +17,7 @@ router.get('/', Auth, async (req, res) => {
     res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ errors: [{ msg: 'server error' }] });
   }
 });
 
@@ -43,13 +43,13 @@ router.post(
       let user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ msg: 'Invalid E-mail' });
+        return res.status(400).json({ errors: [{ msg: 'Invalid E-mail' }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res.json({ msg: 'Invalid Password' });
+        return res.json({ errors: [{ msg: 'Invalid password' }] });
       }
 
       const payload = {
@@ -71,7 +71,7 @@ router.post(
       );
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('server error');
+      res.status(500).json({ errors: [{ msg: 'server error' }] });
     }
   }
 );

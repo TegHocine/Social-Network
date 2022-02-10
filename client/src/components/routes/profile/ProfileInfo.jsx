@@ -3,6 +3,9 @@ import Avatar from '../../layouts/Avatar';
 import ProfileModal from './ProfileModal';
 import TimeStamp from '../../layouts/timestamp/TimeStamp';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+
 const ProfileInfo = ({ user }) => {
   const { cover, name, userName, date, avatar, bio } = user;
   return (
@@ -43,7 +46,8 @@ const ProfileInfo = ({ user }) => {
         )}
         {/* Display time since the use joinned */}
         <div className='text-base text-gray-600 dark:text-gray-400'>
-          <i className='far fa-calendar-alt'></i> <span>Joined</span>
+          <FontAwesomeIcon icon={faCalendar} />{' '}
+          <span className='ml-1'>Joined</span>
           <TimeStamp timeStamp={date} />
         </div>
 

@@ -8,12 +8,13 @@ const config = {
   },
 };
 
+// load the user info
 export const loadUser = createAsyncThunk(
   '/users/loadUser',
-  async ({ rejectWithValue }) => {
-    if (localStorage.token) {
-      SetAuthToken(localStorage.token);
-    }
+  async (dispatch, { rejectWithValue }) => {
+    // set token on initial app loading
+    SetAuthToken(dispatch);
+
     try {
       const res = await axios.get('http://localhost:5000/api/auth');
       return res.data;
@@ -21,12 +22,12 @@ export const loadUser = createAsyncThunk(
       if (!err.response) {
         throw err;
       }
-      console.log(err.response.data);
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.response.data.errors);
     }
   }
 );
 
+//register a new user
 export const addUser = createAsyncThunk(
   '/users/postUser',
   async (user, { rejectWithValue }) => {
@@ -36,18 +37,19 @@ export const addUser = createAsyncThunk(
         user,
         config
       );
-      loadUser();
+      loadUser(res.data.token);
       return res.data;
     } catch (err) {
       if (!err.response) {
         throw err;
       }
-      console.log(err.response.data);
+
       return rejectWithValue(err.response.data.errors);
     }
   }
 );
 
+// authentificate a user
 export const authUser = createAsyncThunk(
   '/users/authUser',
   async (user, { rejectWithValue }) => {
@@ -70,6 +72,7 @@ export const authUser = createAsyncThunk(
   }
 );
 
+// to make user update his info's not working yes
 export const updateUser = createAsyncThunk(
   `/users/updateUser`,
   async (user) => {
@@ -89,7 +92,7 @@ const userSlice = createSlice({
     status: null,
     errors: null,
     isAuthenticated: null,
-    token: localStorage.token,
+    token: localStorage.getItem('token'),
   },
   reducers: {
     logOut: (state) => {
@@ -120,7 +123,8 @@ const userSlice = createSlice({
     },
     [addUser.fulfilled]: (state, { payload }) => {
       localStorage.setItem('token', payload.token);
-      state.user = { ...payload };
+
+      state.token = payload.token;
       state.isAuthenticated = true;
       state.status = 'User registered successfully';
     },
@@ -134,16 +138,17 @@ const userSlice = createSlice({
     },
 
     // Authenticate a user
-    [authUser.pending || addUser.pending]: (state) => {
+    [authUser.pending]: (state) => {
       state.status = 'loading';
     },
-    [authUser.fulfilled || addUser.fulfilled]: (state, { payload }) => {
+    [authUser.fulfilled]: (state, { payload }) => {
       localStorage.setItem('token', payload.token);
-      state.user = payload;
+
+      state.token = payload.token;
       state.isAuthenticated = true;
       state.status = 'User successfully authentificated';
     },
-    [authUser.rejected || addUser.rejected]: (state, { payload }) => {
+    [authUser.rejected]: (state, { payload }) => {
       localStorage.removeItem('token');
       state.isAuthenticated = false;
       state.user = {};

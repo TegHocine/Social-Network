@@ -6,6 +6,8 @@ import axios from 'axios';
 import Avatar from '../../layouts/Avatar';
 import ProgressBar from './progressBar/ProgressBar';
 import Spinner from '../../layouts/spinner/Spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-regular-svg-icons';
 
 const PostBox = () => {
   //post test related state
@@ -24,15 +26,8 @@ const PostBox = () => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-
-  // get the user with fetchuser()
-  // useEffect(() => {
-  //   dispatch(fetchUser(1));
-  //   //eslint-disable-next-line
-  // }, []);
-
   // Get the user state with useSelector (redux)
-  const userData = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   // to control the textarea, height, textlength, progressbar
   const onTextChange = (event) => {
@@ -82,10 +77,10 @@ const PostBox = () => {
       }
 
       const post = {
-        userId: userData.id,
-        name: userData.name,
-        userName: userData.userName,
-        avatar: userData.avatar,
+        userId: user.id,
+        name: user.name,
+        userName: user.userName,
+        avatar: user.avatar,
         text: text,
         imgSrc: selectedImg,
         verified: false,
@@ -115,7 +110,7 @@ const PostBox = () => {
       <div>
         <div className='flex w-full px-4 pt-4 border-b border-b-gray-300 dark:border-b-gray-700'>
           <div>
-            <Avatar src={userData.avatar} styleCss={'w-14'} />
+            <Avatar src={user.avatar} styleCss={'w-14'} />
           </div>
           <form className='w-full p-2' method='post' onSubmit={onPost}>
             <div className='relative'>
@@ -134,10 +129,10 @@ const PostBox = () => {
               <div>
                 <label
                   htmlFor='up-image'
-                  className='text-2xl flex my-2 items-center cursor-pointer'
+                  className='text-xl flex my-2 items-center cursor-pointer'
                   aria-label='add photo'>
-                  <i className='far fa-image pr-2'></i>{' '}
-                  <span className='text-sm'>Click to add photo</span>
+                  <FontAwesomeIcon icon={faImage} />
+                  <span className='text-sm ml-2'>Click to add photo</span>
                   <input
                     type='file'
                     placeholder='Enter image url'

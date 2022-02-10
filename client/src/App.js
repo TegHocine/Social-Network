@@ -7,6 +7,7 @@ import {
   Notification,
   Profile,
   Auth,
+  ProtectedRoute,
 } from './components/routes/index';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -25,7 +26,7 @@ const App = () => {
           </div>
           <div className='flex-1 lg:flex-0/5'>
             <Routes>
-              <Route path='/' element={<Feed />} />
+              <Route path='/' element={<ProtectedRoute component={Feed} />} />
               <Route path='/notifications' element={<Notification />} />
               <Route path='/messages' element={<Message />} />
               <Route path='/profile' element={<Profile />} />
