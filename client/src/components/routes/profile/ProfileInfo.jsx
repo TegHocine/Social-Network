@@ -4,15 +4,17 @@ import ProfileModal from './ProfileModal';
 import TimeStamp from '../../layouts/timestamp/TimeStamp';
 
 const ProfileInfo = ({ user }) => {
-  const { cover, name, userName, timeStamp, avatar, bio } = user;
+  const { cover, name, userName, date, avatar, bio } = user;
   return (
     <div className='border-b border-gray-300 dark:border-gray-700 pb-4'>
-      <div className=''>
-        <img
-          src={cover}
-          alt='cover'
-          className='object-cover object-center w-full h-48'
-        />
+      <div className='bg-teal-600 h-48'>
+        {cover && (
+          <img
+            src={cover}
+            alt='cover'
+            className='object-cover object-center w-full h-full'
+          />
+        )}
       </div>
 
       <div className='w-full h-16 flex justify-between items-center px-5 relative'>
@@ -42,7 +44,7 @@ const ProfileInfo = ({ user }) => {
         {/* Display time since the use joinned */}
         <div className='text-base text-gray-600 dark:text-gray-400'>
           <i className='far fa-calendar-alt'></i> <span>Joined</span>
-          <TimeStamp timeStamp={timeStamp} />
+          <TimeStamp timeStamp={date} />
         </div>
 
         {/* Number of following and follower not implemented yet */}

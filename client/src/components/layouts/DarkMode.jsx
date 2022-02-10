@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { Switch } from '@headlessui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 const DarkMode = () => {
   const [darkMode, setDarkMode] = useState(() => localStorage.theme === 'dark');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const html = document.documentElement.classList;
     const prevTheme = darkMode ? 'light' : 'dark';
     html.remove(prevTheme);
@@ -26,9 +28,9 @@ const DarkMode = () => {
           darkMode ? 'translate-x-6' : 'translate-x-1'
         } flex transform rounded-full text-base`}>
         {darkMode ? (
-          <i className='fas fa-moon'></i>
+          <FontAwesomeIcon icon={faMoon} />
         ) : (
-          <i className='fas fa-sun'></i>
+          <FontAwesomeIcon icon={faSun} />
         )}
       </span>
     </Switch>

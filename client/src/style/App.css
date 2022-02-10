@@ -7,3 +7,24 @@
   overflow-y: auto;
   scroll-behavior: smooth;
 }
+
+/*
+
+@Infos About tailwind colors
+
+-Text
+white
+darkmod:gray-900
+
+--text-title/special {placeholder subtitle ....}
+teal-600 / gray-600
+darkmod:teal-500 / gray-400
+
+-Borders 
+gray-300
+darkmod: gray-700
+
+-Buttons bg
+teal-600
+
+*/

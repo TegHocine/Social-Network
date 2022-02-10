@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SiderBarOption = ({ title, icon, link }) => {
   return (
@@ -8,6 +9,7 @@ const SiderBarOption = ({ title, icon, link }) => {
         <Link
           to={link}
           className='py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-800  rounded-full w-max cursor-pointer transition-colors'>
+          <FontAwesomeIcon icon={icon} />
           <i className={icon}></i>
           <span className='pl-4 hidden lg:inline'>{title}</span>
         </Link>

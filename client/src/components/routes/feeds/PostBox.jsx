@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPostApi } from '../../../features/postsReducer';
+import axios from 'axios';
+
 import Avatar from '../../layouts/Avatar';
 import ProgressBar from './progressBar/ProgressBar';
 import Spinner from '../../layouts/spinner/Spinner';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchUser } from '../../../features/userReducer';
-import { addPostApi } from '../../../features/postsReducer';
-import axios from 'axios';
 
 const PostBox = () => {
   //post test related state
@@ -26,13 +26,13 @@ const PostBox = () => {
   const dispatch = useDispatch();
 
   // get the user with fetchuser()
-  useEffect(() => {
-    dispatch(fetchUser(1));
-    //eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUser(1));
+  //   //eslint-disable-next-line
+  // }, []);
 
   // Get the user state with useSelector (redux)
-  const userData = useSelector((state) => state.user.value);
+  const userData = useSelector((state) => state.user.user);
 
   // to control the textarea, height, textlength, progressbar
   const onTextChange = (event) => {

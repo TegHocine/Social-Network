@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Avatar from '../../layouts/Avatar';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUser } from '../../../features/userReducer';
+
 import { addPostApi } from '../../../features/postsReducer';
 const Message = () => {
   const [text, setText] = useState('');
@@ -11,14 +11,8 @@ const Message = () => {
 
   const dispatch = useDispatch();
 
-  // init the user state with user()
-  useEffect(() => {
-    dispatch(fetchUser());
-    //eslint-disable-next-line
-  }, []);
-
   // Get the user state with useSelector (redux)
-  const userData = useSelector((state) => state.user.value);
+  const userData = useSelector((state) => state.user.user);
 
   // Adding post on Submit using useDispatch (redux)
   // e.preventDefault to prevent the page from loading on submit

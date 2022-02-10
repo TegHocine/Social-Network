@@ -1,9 +1,19 @@
 import React from 'react';
 import Avatar from '../Avatar';
+import { logOut } from '../../../features/userReducer';
+import { useDispatch } from 'react-redux';
 
 const SidebarLogoutBtn = () => {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(logOut());
+  };
+
   return (
-    <div className='mb-4 hidden sm:block cursor-pointer p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full w-max justify-center hidden sm:flex absolute bottom-0'>
+    <div
+      className='mb-4 hidden sm:block cursor-pointer p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full w-max justify-center hidden sm:flex absolute bottom-0'
+      onClick={logout}>
       <div className='w-full flex items-center text-base lg:mr-2'>
         <div>
           <Avatar
