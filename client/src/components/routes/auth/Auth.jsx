@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useLayoutEffect } from 'react';
 import { authUser } from '../../../features/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,8 +14,8 @@ const Auth = () => {
   const { email, password } = auth;
   const dispatch = useDispatch();
 
-  const theme = localStorage.theme;
-  useLayoutEffect(() => {
+  useEffect(() => {
+    const theme = localStorage.theme;
     document.documentElement.classList.add(theme);
     //eslint-disable-next-line
   }, []);

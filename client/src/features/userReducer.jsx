@@ -33,7 +33,6 @@ export const addUser = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const res = await axios.post('http://localhost:5000/api/users', user);
-
       return res.data;
     } catch (err) {
       if (!err.response) {
@@ -50,7 +49,6 @@ export const authUser = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth', user);
-
       return res.data;
     } catch (err) {
       if (!err.response) {
@@ -89,6 +87,7 @@ const userSlice = createSlice({
       state.isAuthenticated = false;
       state.user = {};
       state.token = null;
+      state.errors = null;
       state.status = 'loged out';
     },
   },
@@ -101,6 +100,7 @@ const userSlice = createSlice({
       state.user = payload;
       state.isAuthenticated = true;
       state.status = 'loged in';
+      state.errors = null;
     },
     [loadUser.rejected]: (state) => {
       state.status = 'No token! Rejected';
@@ -115,6 +115,7 @@ const userSlice = createSlice({
       state.token = payload.token;
       state.isAuthenticated = true;
       state.status = 'User registered successfully';
+      state.errors = null;
     },
     [addUser.rejected]: (state, { payload }) => {
       localStorage.removeItem('token');

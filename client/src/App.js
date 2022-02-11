@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import SideBar from './components/layouts/sidebars/SideBar';
 import Widgets from './components/layouts/widgets/Widgets';
 import {
@@ -17,15 +17,17 @@ import { loadUser } from './features/userReducer';
 import './style/App.css';
 
 const App = () => {
-  useLayoutEffect(() => {
-    dispatch(loadUser(localStorage.getItem('token')));
-    //eslint-disable-next-line
-  }, []);
-
   const dispatch = useDispatch();
 
   const userState = useSelector((state) => state.user);
   const { status, isAuthenticated } = userState;
+
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    dispatch(loadUser(token));
+    //eslint-disable-next-line
+  }, [token]);
 
   const location = useLocation();
   return (

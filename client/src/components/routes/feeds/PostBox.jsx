@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addPostApi } from '../../../features/postsReducer';
+
 import axios from 'axios';
 
 import Avatar from '../../layouts/Avatar';
@@ -10,6 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 
 const PostBox = () => {
+  const dispatch = useDispatch();
+  // Get the user state with useSelector (redux)
+
+  const userState = useSelector((state) => state.user);
+  const { user } = userState;
+
   //post test related state
   //get the text the user type
   const [text, setText] = useState('');
@@ -24,10 +30,6 @@ const PostBox = () => {
   //state to manage the image
   const [selectedImg, setSelectedImg] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
-  // Get the user state with useSelector (redux)
-  const user = useSelector((state) => state.user.user);
 
   // to control the textarea, height, textlength, progressbar
   const onTextChange = (event) => {
@@ -89,7 +91,7 @@ const PostBox = () => {
         comments: [],
       };
       //add post
-      dispatch(addPostApi(post));
+      // dispatch(addPostApi(post));
 
       // reseting the state
       setLoading(false);
