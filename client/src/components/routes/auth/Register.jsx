@@ -1,8 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../features/userReducer';
-import { loadUser } from '../../../features/userReducer';
 import { Navigate } from 'react-router';
 
 import defaultProfile from '../../../assets/default-profile.jpg';
@@ -20,10 +19,6 @@ export default function Register() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadUser());
-    //eslint_disable_next_line
-  }, []);
   const user = useSelector((state) => state.user);
   const { isAuthenticated, errors } = user;
 
