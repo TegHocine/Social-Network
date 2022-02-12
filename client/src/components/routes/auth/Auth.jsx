@@ -1,42 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { authUser } from '../../../features/userReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
+import { authUser } from '../../../features/userReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
-import LogoTeal from '../../../assets/neuron.svg';
-import Register from './Register';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import LogoTeal from '../../../assets/neuron.svg'
+import Register from './Register'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 const Auth = () => {
-  const [alert, setAlert] = useState('');
-  const [auth, setAuth] = useState({ email: '', password: '' });
-  const { email, password } = auth;
-  const dispatch = useDispatch();
+  const [alert, setAlert] = useState('')
+  const [auth, setAuth] = useState({ email: '', password: '' })
+  const { email, password } = auth
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    const theme = localStorage.theme;
-    document.documentElement.classList.add(theme);
-    //eslint-disable-next-line
-  }, []);
+  const user = useSelector((state) => state.user)
+  const { isAuthenticated, errors } = user
 
-  const user = useSelector((state) => state.user);
-  const { isAuthenticated, errors } = user;
-
-  if (isAuthenticated) return <Navigate to='/' />;
+  if (isAuthenticated) return <Navigate to='/' />
 
   const onChange = (e) => {
-    setAuth({ ...auth, [e.target.name]: e.target.value });
-  };
+    setAuth({ ...auth, [e.target.name]: e.target.value })
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (email === '' || password === '') {
-      setAlert('Please enter all fields');
+      setAlert('Please enter all fields')
     } else {
-      dispatch(authUser(auth));
+      dispatch(authUser(auth))
     }
-  };
+  }
 
   return (
     <div className='h-screen max-w-lg flex justify-center items-center text-inherit container mx-auto'>
@@ -98,7 +92,7 @@ const Auth = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Auth;
+export default Auth

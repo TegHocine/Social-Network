@@ -19,6 +19,7 @@ export default function Register() {
 
   const dispatch = useDispatch();
 
+  // get user info from the userReducer
   const user = useSelector((state) => state.user);
   const { isAuthenticated, errors } = user;
 

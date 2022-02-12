@@ -1,14 +1,13 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import Spinner from '../../layouts/spinner/Spinner';
+import React from 'react'
+import { Navigate } from 'react-router-dom'
+import Spinner from '../../layouts/spinner/Spinner'
 
-const PrivateRoute = ({ component: Component, ...props }) => {
-  if (props.status === 'loading') return <Spinner />;
-  if (props.auth) {
-    return <Component />;
-  } else {
-    return <Navigate to='/auth' />;
-  }
-};
+const PrivateRoute = ({ component: Component, status, iAuth }) => {
+  if (status === 'loading') return <Spinner />
 
-export default PrivateRoute;
+  if (iAuth) return <Component />
+
+  return <Navigate to='/auth' />
+}
+
+export default PrivateRoute

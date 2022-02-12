@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import SideBar from './components/layouts/sidebars/SideBar';
-import Widgets from './components/layouts/widgets/Widgets';
+import React, { useEffect } from 'react'
+import SideBar from './components/layouts/sidebars/SideBar'
+import Widgets from './components/layouts/widgets/Widgets'
 import {
   Feed,
   Message,
@@ -8,28 +8,30 @@ import {
   Profile,
   Auth,
   ProtectedRoute,
-  PageNotFound,
-} from './components/routes/index';
+  PageNotFound
+} from './components/routes/index'
 
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadUser } from './features/userReducer';
-import './style/App.css';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadUser } from './features/userReducer'
+import './style/App.css'
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const userState = useSelector((state) => state.user);
-  const { status, isAuthenticated } = userState;
+  const userState = useSelector((state) => state.user)
+  const { status, isAuthenticated } = userState
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
-    dispatch(loadUser(token));
+    const theme = localStorage.theme
+    document.documentElement.classList.add(theme)
+    dispatch(loadUser(token))
     //eslint-disable-next-line
-  }, [token]);
+  }, [token])
 
-  const location = useLocation();
+  const location = useLocation()
   return (
     <div className='bg-white text-gray-900 dark:text-white dark:bg-gray-900 w-full'>
       {location.pathname === '/auth' ? (
@@ -46,7 +48,7 @@ const App = () => {
                 element={
                   <ProtectedRoute
                     component={Feed}
-                    auth={isAuthenticated}
+                    iAuth={isAuthenticated}
                     status={status}
                   />
                 }
@@ -56,7 +58,7 @@ const App = () => {
                 element={
                   <ProtectedRoute
                     component={Notification}
-                    auth={isAuthenticated}
+                    iAuth={isAuthenticated}
                     status={status}
                   />
                 }
@@ -66,7 +68,7 @@ const App = () => {
                 element={
                   <ProtectedRoute
                     component={Message}
-                    auth={isAuthenticated}
+                    iAuth={isAuthenticated}
                     status={status}
                   />
                 }
@@ -76,7 +78,7 @@ const App = () => {
                 element={
                   <ProtectedRoute
                     component={Profile}
-                    auth={isAuthenticated}
+                    iAuth={isAuthenticated}
                     status={status}
                   />
                 }
@@ -87,7 +89,7 @@ const App = () => {
                 element={
                   <ProtectedRoute
                     component={PageNotFound}
-                    auth={isAuthenticated}
+                    iAuth={isAuthenticated}
                     status={status}
                   />
                 }
@@ -101,7 +103,7 @@ const App = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
