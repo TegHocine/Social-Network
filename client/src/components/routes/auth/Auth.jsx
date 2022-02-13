@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { authUser } from '../../../features/userReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,14 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 const Auth = () => {
-  const [alert, setAlert] = useState('')
   const [auth, setAuth] = useState({ email: '', password: '' })
   const { email, password } = auth
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
   const { isAuthenticated, errors } = user
-
   if (isAuthenticated) return <Navigate to='/' />
 
   const onChange = (e) => {
@@ -25,11 +23,7 @@ const Auth = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    if (email === '' || password === '') {
-      setAlert('Please enter all fields')
-    } else {
-      dispatch(authUser(auth))
-    }
+    dispatch(authUser(auth))
   }
 
   return (
@@ -38,12 +32,14 @@ const Auth = () => {
         <div className='flex justify-center'>
           <img src={LogoTeal} alt='logo' className='w-14' />
         </div>
+
+        {/* Show  errors sent by the server */}
         {errors !== null && (
-          <div className='px-3 mb-1'>
+          <div className='px-6 mt-4'>
             {errors.map((error) => (
               <div
                 key={error.length + 1}
-                className='bg-red-900 text-sm text-gray-300 p-2'>
+                className='bg-red-900 text-sm text-gray-300 p-2 rounded-full'>
                 <span className='pr-1'>
                   <FontAwesomeIcon icon={faCircleExclamation} />
                 </span>
@@ -86,7 +82,7 @@ const Auth = () => {
               </div>
             </div>
             <div className='mt-6 flex justify-center'>
-              <Register />
+              <Register user={user} />
             </div>
           </div>
         </div>

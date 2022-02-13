@@ -1,29 +1,27 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '../../../features/userReducer';
-import { Navigate } from 'react-router';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../../features/userReducer'
+import { Navigate } from 'react-router'
 
-import defaultProfile from '../../../assets/default-profile.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import defaultProfile from '../../../assets/default-profile.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 
-export default function Register() {
-  let [isOpen, setIsOpen] = useState(false);
+export default function Register({ user }) {
+  let [isOpen, setIsOpen] = useState(false)
   const closeModal = () => {
-    setIsOpen(false);
-  };
+    setIsOpen(false)
+  }
   const openModal = () => {
-    setIsOpen(true);
-  };
+    setIsOpen(true)
+  }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  // get user info from the userReducer
-  const user = useSelector((state) => state.user);
-  const { isAuthenticated, errors } = user;
+  const { isAuthenticated, errors } = user
 
-  const [alert, setAlert] = useState('');
+  const [alert, setAlert] = useState('')
   const [userInfo, setUserInfo] = useState({
     name: '',
     email: '',
@@ -32,16 +30,16 @@ export default function Register() {
     userName: '',
     cover: '',
     bio: '',
-    avatar: `${defaultProfile}`,
-  });
-  const { name, email, password, passwordConf, userName } = userInfo;
+    avatar: `${defaultProfile}`
+  })
+  const { name, email, password, passwordConf, userName } = userInfo
 
   const onChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  };
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
+  }
 
   const onRegister = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (
       name === '' ||
       email === '' ||
@@ -49,12 +47,12 @@ export default function Register() {
       password === '' ||
       passwordConf === ''
     ) {
-      setAlert('Please enter all fields');
+      setAlert('Please enter all fields')
     } else if (password !== passwordConf) {
-      setAlert('Password dont match');
-    } else dispatch(addUser(userInfo));
-  };
-  if (isAuthenticated) return <Navigate to='/' />;
+      setAlert('Password dont match')
+    } else dispatch(addUser(userInfo))
+  }
+  if (isAuthenticated) return <Navigate to='/' />
   return (
     <>
       <div className='w-full flex items-center justify-center'>
@@ -123,7 +121,7 @@ export default function Register() {
                 {/* notify the user in case of password not matching  */}
                 {alert !== '' && (
                   <div className='px-3 mb-1'>
-                    <div className='bg-red-900 text-sm text-gray-300 p-2'>
+                    <div className='bg-red-900 text-sm text-gray-300 p-2 rounded'>
                       <span className='pr-1'>
                         <FontAwesomeIcon icon={faCircleExclamation} />
                       </span>
@@ -131,13 +129,13 @@ export default function Register() {
                     </div>
                   </div>
                 )}
-                {/* Show  errors send by the server */}
+                {/* Show  errors sent by the server */}
                 {errors !== null && (
                   <div className='px-3 mb-1'>
                     {errors.map((error) => (
                       <div
                         key={error.length + 1}
-                        className='bg-red-900 text-sm text-gray-300 p-2'>
+                        className='bg-red-900 text-sm text-gray-300 p-2 rounded'>
                         <span className='pr-1'>
                           <FontAwesomeIcon icon={faCircleExclamation} />
                         </span>
@@ -251,5 +249,5 @@ export default function Register() {
         </Dialog>
       </Transition>
     </>
-  );
+  )
 }

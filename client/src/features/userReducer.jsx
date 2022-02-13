@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import SetAuthToken from './SetAuthToken'
-import axios from 'axios'
-
+import instance from './axiosInstance'
 const config = {
   headers: {
     'Content-Type': 'application/json'
@@ -16,7 +15,7 @@ export const loadUser = createAsyncThunk(
     SetAuthToken(dispatch)
 
     try {
-      const res = await axios.get('http://localhost:5000/api/auth')
+      const res = await instance.get('http://localhost:5000/api/auth')
       return res.data
     } catch (err) {
       if (!err.response) {
@@ -32,7 +31,7 @@ export const addUser = createAsyncThunk(
   '/users/postUser',
   async (user, { rejectWithValue }) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/users', user)
+      const res = await instance.post('http://localhost:5000/api/users', user)
       return res.data
     } catch (err) {
       if (!err.response) {
@@ -48,7 +47,7 @@ export const authUser = createAsyncThunk(
   '/users/authUser',
   async (user, { rejectWithValue }) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth', user)
+      const res = await instance.post('http://localhost:5000/api/auth', user)
       return res.data
     } catch (err) {
       if (!err.response) {
@@ -64,7 +63,7 @@ export const updateUser = createAsyncThunk(
   `/users/updateUser`,
   async (user) => {
     try {
-      const res = await axios.put(`/users/${user.id}`, user, config)
+      const res = await instance.put(`/users/${user.id}`, user, config)
       return res.data
     } catch (err) {
       return err.response.data.msg
@@ -89,6 +88,10 @@ const userSlice = createSlice({
       state.token = null
       state.errors = null
       state.status = 'loged out'
+    },
+    clearERR: (state) => {
+      state.errors = null
+      console.log('here we go again')
     }
   },
   extraReducers: {
@@ -147,6 +150,6 @@ const userSlice = createSlice({
   }
 })
 
-export const { logOut } = userSlice.actions
+export const { logOut, clearERR } = userSlice.actions
 
 export default userSlice.reducer

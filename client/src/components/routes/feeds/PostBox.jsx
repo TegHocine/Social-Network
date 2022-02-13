@@ -1,111 +1,107 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { addPostApi } from '../../../features/postsReducer'
 
-import axios from 'axios';
-
-import Avatar from '../../layouts/Avatar';
-import ProgressBar from './progressBar/ProgressBar';
-import Spinner from '../../layouts/spinner/Spinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-regular-svg-icons';
+import Avatar from '../../layouts/Avatar'
+import ProgressBar from './progressBar/ProgressBar'
+import Spinner from '../../layouts/spinner/Spinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImage } from '@fortawesome/free-regular-svg-icons'
 
 const PostBox = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // Get the user state with useSelector (redux)
 
-  const userState = useSelector((state) => state.user);
-  const { user } = userState;
+  const user = useSelector((state) => state.user.user)
 
   //post test related state
   //get the text the user type
-  const [text, setText] = useState('');
+  const [text, setText] = useState('')
   // using textarea so tracking the scrollHeigth to make the textarea expend
-  const [areaH, setareaH] = useState('auto');
+  const [areaH, setareaH] = useState('auto')
   // this state is for the circle progress bar since 250 char is the max added a progress to see how many char's left
   const [textProgress, setTextProgress] = useState({
     textLength: 0,
-    remain: 250,
-  });
+    remain: 250
+  })
 
   //state to manage the image
-  const [selectedImg, setSelectedImg] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [selectedImg, setSelectedImg] = useState('')
+  const [loading, setLoading] = useState(false)
 
   // to control the textarea, height, textlength, progressbar
   const onTextChange = (event) => {
-    setText(event.target.value);
-    setareaH('auto');
-    setareaH(`${event.target.scrollHeight}px`);
-    const textLength = event.target.textLength;
-    textLength < 1 && setareaH('95px');
+    setText(event.target.value)
+    setareaH('auto')
+    setareaH(`${event.target.scrollHeight}px`)
+    const textLength = event.target.textLength
+    textLength < 1 && setareaH('95px')
 
     setTextProgress({
       textLength,
-      remain: `${250 - textLength}`,
-    });
-  };
+      remain: `${250 - textLength}`
+    })
+  }
 
   // to control the image on select and show the image
   const onImgSelect = (changeEvent) => {
-    const reader = new FileReader();
+    const reader = new FileReader()
 
     reader.onload = (onloadEvent) => {
-      setSelectedImg(onloadEvent.target.result);
-    };
+      setSelectedImg(onloadEvent.target.result)
+    }
 
-    reader.readAsDataURL(changeEvent.target.files[0]);
-  };
+    reader.readAsDataURL(changeEvent.target.files[0])
+  }
 
   // Adding post on click using useDispatch (redux) before that we upload the image to cloudinary if the user selected one
+
   const onPost = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      setLoading(true);
+      setLoading(true)
       if (selectedImg !== '') {
-        const form = e.currentTarget;
+        const form = e.currentTarget
         const fileInput = Array.from(form.elements).find(
           ({ name }) => name === 'up-image'
-        );
-        const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
-        formData.append('upload_preset', 'testing');
+        )
+        const formData = new FormData()
+        formData.append('file', fileInput.files[0])
+        formData.append('upload_preset', 'testing')
 
         const res = await axios.post(
           'https://api.cloudinary.com/v1_1/dyqcfzuvg/image/upload',
           formData
-        );
-        setSelectedImg(res.data.secure_url);
-        console.log(res.data);
+        )
+        setSelectedImg(res.data.secure_url)
       }
 
       const post = {
-        userId: user.id,
+        user: user._id,
         name: user.name,
         userName: user.userName,
         avatar: user.avatar,
         text: text,
-        imgSrc: selectedImg,
-        verified: false,
-        timeStamp: new Date().toLocaleString('en-US'),
-        like: 0,
-        comments: [],
-      };
+        image: selectedImg,
+        verified: false
+      }
       //add post
-      // dispatch(addPostApi(post));
+      dispatch(addPostApi(post))
 
       // reseting the state
-      setLoading(false);
-      setSelectedImg('');
-      setText('');
-      setareaH('95');
+      setLoading(false)
+      setSelectedImg('')
+      setText('')
+      setareaH('95')
       setTextProgress({
         textLength: 0,
-        remain: 250,
-      });
+        remain: 250
+      })
     } catch (error) {
-      return error.response.statusText;
+      return error.response.statusText
     }
-  };
+  }
 
   return (
     <div>
@@ -186,7 +182,7 @@ const PostBox = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PostBox;
+export default PostBox

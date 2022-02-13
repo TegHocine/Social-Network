@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Avatar from '../../layouts/Avatar';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useRef } from 'react'
+import Avatar from '../../layouts/Avatar'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { addPostApi } from '../../../features/postsReducer';
+import { addPostApi } from '../../../features/postsReducer'
 const Message = () => {
-  const [text, setText] = useState('');
-  const [img, setImg] = useState('');
+  const [text, setText] = useState('')
+  const [img, setImg] = useState('')
 
-  const postBoxWidth = useRef('');
+  const postBoxWidth = useRef('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // Get the user state with useSelector (redux)
-  const userData = useSelector((state) => state.user.user);
+  const userData = useSelector((state) => state.user.user)
 
   // Adding post on Submit using useDispatch (redux)
   // e.preventDefault to prevent the page from loading on submit
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const post = {
       userId: userData.id,
       name: userData.name,
@@ -28,25 +28,25 @@ const Message = () => {
       verified: false,
       timeStamp: new Date().toLocaleString('en-US'),
       like: 0,
-      comments: [],
-    };
+      comments: []
+    }
 
-    dispatch(addPostApi(post));
+    dispatch(addPostApi(post))
 
-    setImg('');
-    setText('');
-  };
+    setImg('')
+    setText('')
+  }
 
   // to control the input text on change
   const onTextChange = (event) => {
-    setText(event.target.innerText.toString());
+    setText(event.target.innerText.toString())
     // console.log(event.target);
-  };
+  }
 
   // to control the image on change
   const onImgChange = (event) => {
-    setImg(event.target.value);
-  };
+    setImg(event.target.value)
+  }
 
   return (
     // Here im trying to clone the twitter post box having some probleme with copy pasting
@@ -105,7 +105,7 @@ const Message = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Message;
+export default Message
